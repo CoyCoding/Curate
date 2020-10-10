@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from './utils/history.js';
+import LoginPage from './views/LoginPage/LoginPage';
+import FaqPage from './views/FaqPage/FaqPage';
+import PrivateRoute from './components/RouteHocs/PrivateRoute';
+import PublicRoute from './components/RouteHocs/PublicRoute';
 import './App.css';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('access-token'));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={history}>
+      <div className="app">
+        <Switch>
+          <PublicRoute path='/' exact component={FaqPage}/>
+          <PublicRoute path='/Login' exact props={loggedIn} component={LoginPage}/>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
