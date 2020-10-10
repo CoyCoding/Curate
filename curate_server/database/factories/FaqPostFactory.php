@@ -6,6 +6,11 @@ use App\Models\FaqPost as FaqPost;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
+/**
+ * The FaqPost Factory.
+ *
+ * @var string
+ */
 
 $factory->define(FaqPost::class, function (Faker $faker) {
     return [

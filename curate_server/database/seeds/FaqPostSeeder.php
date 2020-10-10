@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\FaqPost;
+use Faker\Generator as Faker;
 
 class FaqPostSeeder extends Seeder
 {

@@ -3,6 +3,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Faker\Generator as Faker;
 
 class UserSeeder extends Seeder
 {
