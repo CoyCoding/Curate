@@ -15,7 +15,7 @@ function App() {
       <div className="app">
         <Switch>
           <PublicRoute path='/' exact component={FaqPage}/>
-          <PublicRoute path='/Login' exact props={loggedIn} component={LoginPage}/>
+          <PublicRoute path='/Login' exact setLoggedIn={setLoggedIn} component={LoginPage}/>
         </Switch>
       </div>
     </Router>
