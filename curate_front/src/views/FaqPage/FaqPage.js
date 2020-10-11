@@ -1,70 +1,84 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
+import PropTypes from 'prop-types';
+import { makeStyles, withStyles, ThemeProvider } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Divider from '@material-ui/core/Divider';
+import Container from '@material-ui/core/Container';
+import FAQs from './components/FAQs';
+import theme from '../../theme/fontTheme';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
   },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-  body: {
-    maxWidth: '1200px',
-  },
   center:{
     display: 'flex',
     justifyContent: 'center',
   },
-  accordion: {
-    marginBottom: '24px',
-    padding: '24px',
+  heroBar:{
+    background: '#4c4c4c',
+    color: 'white',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '48px',
+    zIndex: '-1',
+  },
+  heroText:{
+    marginBottom: '16px',
+    textShadow: '0 0 5px black',
+  },
+  divider:{
+    backgroundColor: 'rgb(255 255 255 / 50%)',
+    maxWidth: '75%',
+    margin: 'auto',
+    boxShadow: '0 0 5px black',
+  },
+  spacer:{
+    height: '100vh',
+  },
+  body:{
+    background: '#e0e0e0',
+    flexGrow: 1,
+  },
+  contentWrap:{
+    margin: '48px auto 48px',
+    boxShadow: '0px -2px 4px -1px rgba(0,0,0,0.2),' +
+               '0px -4px 5px 0px rgba(0,0,0,0.14),' +
+               '0px 1px 10px 0px rgba(0,0,0,0.12)',
+    borderRadius: '16px',
+    overflow: 'hidden'
+  },
+  content:{
+    background: 'white',
+    padding: '16px',
+    borderBottom: '#a0006f 10px solid'
   }
 }));
 
 export default function FaqPage() {
   const classes = useStyles();
-
+  console.log(theme)
   return (
-    <div className={classes.center}>
-      <div className={classes.root + ' ' + classes.body}>
-        <Accordion className={classes.accordion}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography className={classes.heading}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.
+    <>
+    <Grid className={classes.heroBar} item xs={12}>
+        <div>
+          <ThemeProvider theme={theme}>
+            <Typography variant="h1" className={classes.heroText}>
+              Frequently Asked Questions
             </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-          >
-            <Typography className={classes.heading}>Accordion 2</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-      </div>
-    </div>
+          </ThemeProvider>
+          <Divider className={classes.divider}/>
+        </div>
+
+    </Grid>
+    <Grid className={classes.body}>
+      <Container>
+        <Container disableGutters className={classes.contentWrap}>
+          <FAQs/>
+        </Container>
+      </Container>
+    </Grid>
+    </>
   );
 }
