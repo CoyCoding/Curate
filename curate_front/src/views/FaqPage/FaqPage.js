@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState }from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 import FAQs from './components/FAQs';
+import FAQLoading from './components/FAQLoading';
+import Loading from '../../components/Loading/Loading';
 import theme from '../../theme/fontTheme';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
     background: '#e0e0e0',
     flexGrow: 1,
   },
+  loading:{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   contentWrap:{
     margin: '48px auto 48px',
     boxShadow: '0px -2px 4px -1px rgba(0,0,0,0.2),' +
@@ -56,9 +63,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function FaqPage() {
+export default function FaqPage(props) {
   const classes = useStyles();
-  console.log(theme)
+  const [faqs, setFaqs] = useState(props.faqs);
+  console.log(props)
+  useEffect(()=> {
+    setFaqs(props.faqs)
+  }, [props.faqs])
+
   return (
     <>
     <Grid className={classes.heroBar} item xs={12}>
@@ -72,13 +84,7 @@ export default function FaqPage() {
         </div>
 
     </Grid>
-    <Grid className={classes.body}>
-      <Container>
-        <Container disableGutters className={classes.contentWrap}>
-          <FAQs/>
-        </Container>
-      </Container>
-    </Grid>
+    {props.faqs ? <FAQs/> : <FAQLoading/>}
     </>
   );
 }

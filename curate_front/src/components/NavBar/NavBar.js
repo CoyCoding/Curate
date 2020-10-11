@@ -12,7 +12,6 @@ export default function NavBar(props) {
     setLoggedIn(props.loggedIn)
   }, [props])
 
-  console.log(props)
   return (
     <div>
       <AppBar position="static">

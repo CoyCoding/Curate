@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Title = (props) => {
   const classes = useStyles();
-  console.log(theme)
+  
   function goHome(){
       props.history.push('/');
   }
