@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import LogoutBtn from './LogoutBtn';
 import LoginBtn from './LoginBtn';
+import Title from './Title';
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -13,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  pointer:{
+    cursor: 'pointer'
+  }
 }));
 
 export default function NavBar(props) {
@@ -29,7 +33,7 @@ export default function NavBar(props) {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Faq Kings
+          <Title/>
           </Typography>
           {loggedIn ? <LogoutBtn {...props}/> : <LoginBtn {...props}/>}
         </Toolbar>

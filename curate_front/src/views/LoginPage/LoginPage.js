@@ -47,6 +47,7 @@ export default function LoginPage(props) {
   const classes = useStyles();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [validating, setValidating] = useState(false);
 
   useEffect(()=> {
     ValidatorForm.addValidationRule('Length', (value) => {
@@ -60,7 +61,7 @@ export default function LoginPage(props) {
   const handleSubmit = (e) =>{
     // need props to pass this all the way up to App
     console.log(email, password)
-
+    setValidating(true);
     axios.post('https://curate.v1.coycoding.com/Login', {email, password})
         .then(function (response) {
           localStorage.setItem('access-token', response.data.token);
@@ -69,6 +70,7 @@ export default function LoginPage(props) {
         })
         .catch(function (error) {
           console.log(error);
+          setValidating(false);
       });
   }
 
@@ -122,6 +124,7 @@ export default function LoginPage(props) {
                 fullWidth
                 variant="contained"
                 color="primary"
+                disabled={validating}
                 className={classes.submit}
               >
                 Sign In
