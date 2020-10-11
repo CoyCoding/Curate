@@ -13,9 +13,11 @@ import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   body:{
-    height: '100vh',
     display: 'flex',
     alignItems: 'center',
+    flexGrow: '1',
+    background: 'linear-gradient(45deg, #5775d6, #8f009866), url(./images/lines.jpg)',
+    backgroundSize: 'cover'
   },
   paper: {
     display: 'flex',
@@ -36,7 +38,8 @@ const useStyles = makeStyles((theme) => ({
   shadowPadding:{
     boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
     paddingTop: '48px',
-    paddingBottom: '48px'
+    paddingBottom: '48px',
+    backgroundColor: '#fef'
   }
 }));
 
@@ -57,9 +60,6 @@ export default function LoginPage(props) {
   const handleSubmit = (e) =>{
     // need props to pass this all the way up to App
     console.log(email, password)
-    // axios.get('https://curate.v1.coycoding.com/FaqPosts').then((res)=>{
-    //   console.log(res)
-    // }).catch((e) => console.log(e))
 
     axios.post('https://curate.v1.coycoding.com/Login', {email, password})
         .then(function (response) {
@@ -73,64 +73,66 @@ export default function LoginPage(props) {
   }
 
   return (
-    <Container className={classes.body}>
-      <Container className={classes.shadowPadding}  maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Log in
-          </Typography>
-          <ValidatorForm className={classes.form}
-            onSubmit={handleSubmit}
-            onError={errors => console.log(errors)}>
-            <TextValidator
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              onChange={event => setEmail(event.target.value)}
-              value={email}
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              validators={['required']}
-              errorMessages={['this field is required']}
-              autoFocus
-            />
-            <TextValidator
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              onChange={event => setPassword(event.target.value)}
-              value={password}
-              type="password"
-              validators={['required', 'Length:4']}
-              errorMessages={['this field is required', 'password must be longer than 4']}
-              id="password"
-              autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-          </ValidatorForm>
-        </div>
-        <Box mt={8}>
-          <Copyright />
-        </Box>
+    <div className={classes.body}>
+      <Container >
+        <Container className={classes.shadowPadding}  maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Log in
+            </Typography>
+            <ValidatorForm className={classes.form}
+              onSubmit={handleSubmit}
+              onError={errors => console.log(errors)}>
+              <TextValidator
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                onChange={event => setEmail(event.target.value)}
+                value={email}
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                validators={['required']}
+                errorMessages={['this field is required']}
+                autoFocus
+              />
+              <TextValidator
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                onChange={event => setPassword(event.target.value)}
+                value={password}
+                type="password"
+                validators={['required', 'Length:4']}
+                errorMessages={['this field is required', 'password must be longer than 4']}
+                id="password"
+                autoComplete="current-password"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign In
+              </Button>
+            </ValidatorForm>
+          </div>
+          <Box mt={8}>
+            <Copyright />
+          </Box>
+        </Container>
       </Container>
-    </Container>
+    </div>
   );
 }

@@ -2,7 +2,7 @@ import Button from '@material-ui/core/Button';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Redirect, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,9 +21,9 @@ function LoginBtn(props) {
   const classes = useStyles();
 
   const login = () => {
-    console.log('test')
     props.history.push('Login');
   }
+  
   return (
     <Button color="inherit" onClick={login}>
       <PermIdentityIcon className={classes.menuButton} />
