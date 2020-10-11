@@ -4,6 +4,9 @@ import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import ThreeDRotation from '@material-ui/icons/ThreeDRotation';
 
 const Accordion = withStyles({
   root: {
@@ -49,29 +52,40 @@ const AccordionDetails = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
   question: {
     fontWeight: 700,
-    color: '#3f51b5'
+    color: '#3f51b5',
+    marginRight: 'auto'
+  },
+  btnM: {
+    border: '2px solid #3f51b5',
+    color: '#3f51b5',
+    borderRadius: '50%'
+  },
+  btnP: {
+    border: '2px solid grey',
+    color: 'grey',
+    borderRadius: '50%'
   }
+
 }));
 
-export default function FAQCard() {
-  const [expanded, setExpanded] = React.useState('panel1');
+export default function FAQCard(faq) {
+  const [expanded, setExpanded] = React.useState({});
   const classes = useStyles();
 
   const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded({...expanded, newExpanded});
+    setExpanded({...expanded, [panel]: !expanded[panel]});
   };
 
   return (
     <>
-      <Accordion>
-        <AccordionSummary  aria-controls="panel1d-content" >
-          <Typography className={classes.question} >Collapsible Group Item #1</Typography>
+      <Accordion onChange={handleChange(faq.id)} >
+        <AccordionSummary   aria-controls={`faq-${faq.id}-control`} >
+          <Typography className={classes.question} >{faq.question}</Typography>
+          {expanded[faq.id] ? <RemoveIcon className={classes.btnP}/> : <AddIcon className={classes.btnM}/>}
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget. Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
+            {faq.answer}
           </Typography>
         </AccordionDetails>
       </Accordion>

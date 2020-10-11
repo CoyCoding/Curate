@@ -1,13 +1,10 @@
 import React, { useEffect, useState }from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles, withStyles, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import Container from '@material-ui/core/Container';
 import FAQs from './components/FAQs';
 import FAQLoading from './components/FAQLoading';
-import Loading from '../../components/Loading/Loading';
 import theme from '../../theme/fontTheme';
 
 const useStyles = makeStyles((theme) => ({
@@ -84,7 +81,7 @@ export default function FaqPage(props) {
         </div>
 
     </Grid>
-    {props.faqs ? <FAQs/> : <FAQLoading/>}
+    {props.faqs ? <FAQs {...props}/> : <FAQLoading />}
     </>
   );
 }
