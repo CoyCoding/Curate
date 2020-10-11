@@ -31,7 +31,7 @@ function App() {
       <div className="app">
       <NavBar loggedIn={loggedIn}/>
         <Switch>
-          <Route path="/" render={props => <FaqPage faqs={faqs} {...props}/>} />
+          <Route path="/" exact render={props => <FaqPage faqs={faqs} {...props}/>} />
           <PublicRoute path="/Login" component={LoginPage} data={{setLoggedIn, loggedIn}} />} />
         <PrivateRoute path='/Logout' data={{loggedIn, setLoggedIn}} component={Logout}/>
         </Switch>

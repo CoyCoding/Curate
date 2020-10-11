@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FAQs(props) {
   const classes = useStyles();
-  console.log(props)
+  
   return (
     <Container>
       <Container disableGutters className={classes.contentWrap}>
@@ -29,6 +29,6 @@ export default function FAQs(props) {
 
 const buildFaqCards = (faqs) => {
   return faqs.map((faq)=>(
-    <FAQCard {...faq}/>
+    <FAQCard {...faq} key={faq.id}/>
   ))
 }

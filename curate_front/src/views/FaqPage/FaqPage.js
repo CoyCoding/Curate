@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FaqPage(props) {
   const classes = useStyles();
   const [faqs, setFaqs] = useState(props.faqs);
-  console.log(props)
+
   useEffect(()=> {
     setFaqs(props.faqs)
   }, [props.faqs])
