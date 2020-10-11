@@ -1,13 +1,12 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom'
 
-const PrivateRoute = ({ component: Component, ...rest }) =>  (
-    <Route {...rest} render={ (props) => {
-      console.log(props);
-        if (true){
-          return <Redirect to="/" />
+const PrivateRoute = ({ component: Component, data, ...rest}) =>  (
+    <Route {...rest} render={(props) => {
+        if (!data.loggedIn){
+          return <Redirect to="/Login" />
         } else {
-          return <Component {...props}/>
+          return <Component {...data} {...props}/>
         }
       }}
     />

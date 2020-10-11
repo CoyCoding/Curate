@@ -1,9 +1,9 @@
 import React from 'react';
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 
-const PublicRoute = ({ component: Component, auth, ...rest }) =>  (
+const PublicRoute = ({ component: Component, data, ...rest }) =>  (
   <Route {...rest} render={ (props) => {
-        return <Component {...props}/>
+        return !data.loggedIn ? <Component {...data} {...props}/> : <Redirect to={'Dashboard'}/>
     }}
   />
 )

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Link from '@material-ui/core/Link';
+import Copyright from './components/Copyright';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -10,19 +10,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import axios from 'axios';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit">
-        Faq Kings
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   body:{
@@ -53,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignIn() {
+export default function LoginPage(props) {
   const classes = useStyles();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -70,18 +57,16 @@ export default function SignIn() {
   const handleSubmit = (e) =>{
     // need props to pass this all the way up to App
     console.log(email, password)
-    var self = this;
     // axios.get('https://curate.v1.coycoding.com/FaqPosts').then((res)=>{
     //   console.log(res)
     // }).catch((e) => console.log(e))
-    var config = {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-};
-    axios.post('https://curate.v1.coycoding.com/Login', {email, password}, config)
+
+    axios.post('https://curate.v1.coycoding.com/Login', {email, password})
         .then(function (response) {
           console.log(response)
-          localStorage.setItem('jwtToken', response.data.token);
-          self.props.setLoggedIn(response.data.token);
+          localStorage.setItem('access-token', response.data.token);
+          props.setLoggedIn(response.data.token);
+          props.history.push('dashboard');
         })
         .catch(function (error) {
           console.log(error);

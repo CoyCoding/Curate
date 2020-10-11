@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from './utils/history.js';
 import LoginPage from './views/LoginPage/LoginPage';
+import Logout from './views/LoginPage/Logout';
 import FaqPage from './views/FaqPage/FaqPage';
 import PrivateRoute from './components/RouteHocs/PrivateRoute';
 import PublicRoute from './components/RouteHocs/PublicRoute';
@@ -14,8 +15,9 @@ function App() {
     <Router history={history}>
       <div className="app">
         <Switch>
-          <PublicRoute path='/' exact component={FaqPage}/>
-          <PublicRoute path='/Login' exact setLoggedIn={setLoggedIn} component={LoginPage}/>
+          <Route path='/' exact component={FaqPage}/>
+          <PublicRoute path="/Login" component={LoginPage} data={{setLoggedIn, loggedIn}} />} />
+        <PrivateRoute path='/Logout' data={{loggedIn}} component={Logout}/>
         </Switch>
       </div>
     </Router>
