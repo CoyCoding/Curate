@@ -5,12 +5,7 @@ import Link from '@material-ui/core/Link';
 export default function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit">
-        Faq Kings
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      {'Copyright © '}Faq Kings {new Date().getFullYear()}{'.'}
     </Typography>
   );
 }

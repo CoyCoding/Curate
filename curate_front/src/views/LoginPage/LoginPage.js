@@ -63,10 +63,9 @@ export default function LoginPage(props) {
 
     axios.post('https://curate.v1.coycoding.com/Login', {email, password})
         .then(function (response) {
-          console.log(response)
           localStorage.setItem('access-token', response.data.token);
           props.setLoggedIn(response.data.token);
-          props.history.push('dashboard');
+          props.history.push('Dashboard');
         })
         .catch(function (error) {
           console.log(error);

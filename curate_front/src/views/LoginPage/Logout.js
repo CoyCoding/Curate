@@ -1,9 +1,9 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 
-const Logout = () => {
+const Logout = (props) => {
   localStorage.removeItem('access-token');
-  console.log(localStorage.getItem('access-token'))
+  props.setLoggedIn(null);
   return <Redirect to={''} />
 }
 
