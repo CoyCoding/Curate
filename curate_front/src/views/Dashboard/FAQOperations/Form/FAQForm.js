@@ -90,7 +90,7 @@ export default function LoginPage(props) {
     const question = form.question;
     const answer = form.answer;
     if(!answer || !question) {
-      return setErrors({message: 'Both a question and an answer are required'});
+      return setErrors(['Both a question and an answer are required']);
     }
 
     setValidating(true);
@@ -103,7 +103,7 @@ export default function LoginPage(props) {
         })
         .catch(function (error) {
           setValidating(false);
-          return setErrors({message: 'Uhhh there was an error with the server I guess'});
+          return setErrors(['Uhhh there was an error with the server I guess']);
       });
   }
 
@@ -114,7 +114,7 @@ export default function LoginPage(props) {
     const id = props.match.params.id;
 
     if(!answer || !question) {
-      return setErrors(['Both a question and an answer are Required']);
+      return setErrors(['Both a question and an answer are required']);
     }
 
     setValidating(true);

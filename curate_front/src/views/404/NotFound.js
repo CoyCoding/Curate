@@ -1,12 +1,14 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-
+import './404.css';
 function NotFound(props){
   return (
-    <>Not Found</>
+    <>
+        <div className="bg" style={{ backgroundImage: 'linear-gradient(45deg, #00000073, #0a0a0a63), url("./images/travolta.gif")'}}><div className="code">404</div></div>
+
+    </>
   )
 
 }
 
 
-export default withRouter(NotFound);
+export default NotFound;

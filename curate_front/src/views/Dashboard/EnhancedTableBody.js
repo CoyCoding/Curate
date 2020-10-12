@@ -75,7 +75,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function EnhancedTableBody(props) {
-  console.log(props)
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("question");
