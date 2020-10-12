@@ -1,4 +1,4 @@
-import React, { useEffect, useState }from 'react';
+import React from 'react';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -62,11 +62,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FaqPage(props) {
   const classes = useStyles();
-  const [faqs, setFaqs] = useState(props.faqs);
-
-  useEffect(()=> {
-    setFaqs(props.faqs)
-  }, [props.faqs])
 
   return (
     <>

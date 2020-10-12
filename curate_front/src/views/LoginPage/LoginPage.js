@@ -60,7 +60,6 @@ export default function LoginPage(props) {
 
   const handleSubmit = (e) =>{
     // need props to pass this all the way up to App
-    console.log(email, password)
     setValidating(true);
     axios.post('https://curate.v1.coycoding.com/Login', {email, password})
         .then(function (response) {

@@ -21,9 +21,7 @@ function App() {
   useEffect(()=> {
     axios.get('https://curate.v1.coycoding.com/FaqPosts')
         .then(function (response) {
-          console.log('getFAQS')
           setFaqs(response.data)
-          console.log(response.data)
         })
         .catch(function (error) {
           console.log(error);

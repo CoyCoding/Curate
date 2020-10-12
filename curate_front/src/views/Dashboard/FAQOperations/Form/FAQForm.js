@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     flexGrow: '1',
-    background: 'linear-gradient(45deg, #5775d6, #8f009866), url(./images/lines.jpg)',
+    background: 'linear-gradient(45deg, #5775d6, #8f009866), url(/images/lines.jpg)',
     backgroundSize: 'cover'
   },
   test:{
@@ -58,7 +58,6 @@ export default function LoginPage(props) {
   const [validating, setValidating] = useState(false);
   const [errors, setErrors] = useState({});
   const [sucess, setSucess] = useState({});
-  const [editId, setEditId] = useState(-1);
 
   // Checks to see if we are in edit mode and loads the form.
   useEffect(()=>{
@@ -122,7 +121,7 @@ export default function LoginPage(props) {
         .then(function (response) {
           setSucess({message: 'you wont see this either'});
           const faqs = props.faqs;
-          faqs[editId] = response.data;
+          faqs[id] = response.data;
           props.setFaqs([...faqs]);
           setValidating(false);
         })
