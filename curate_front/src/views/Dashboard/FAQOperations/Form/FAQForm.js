@@ -59,14 +59,14 @@ export default function LoginPage(props) {
   const [validating, setValidating] = useState(false);
   const [errors, setErrors] = useState([]);
   const [success, setsuccess] = useState({});
-
+  console.log(props)
   // Checks to see if we are in edit mode and loads the form.
   useEffect(()=>{
     const id = props.match.params.id;
     const faqs = props.faqs;
     if(id && faqs){
       const i = findFAQById(faqs, id);
-      setForm({question: faqs[i].question, answer: faqs[i].question});
+      setForm({question: faqs[i].question, answer: faqs[i].answer});
     }
   },[props.match.params.id, props.faqs])
 
