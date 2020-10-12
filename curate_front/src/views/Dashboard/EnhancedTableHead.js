@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
@@ -52,13 +51,5 @@ function EnhancedTableHead(props) {
     </TableHead>
   );
 }
-
-EnhancedTableHead.propTypes = {
-  classes: PropTypes.object.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired
-};
 
 export default EnhancedTableHead;
