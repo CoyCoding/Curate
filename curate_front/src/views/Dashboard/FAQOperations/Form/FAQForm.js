@@ -58,7 +58,7 @@ export default function LoginPage(props) {
   const [form, setForm] = useState({question: '', answer: ''});
   const [validating, setValidating] = useState(false);
   const [errors, setErrors] = useState([]);
-  const [sucess, setSucess] = useState({});
+  const [success, setsuccess] = useState({});
 
   // Checks to see if we are in edit mode and loads the form.
   useEffect(()=>{
@@ -74,7 +74,7 @@ export default function LoginPage(props) {
   const handleChange = (e) =>{
       const key = e.target.name;
       setErrors([])
-      setSucess([])
+      setsuccess([])
       setForm({...form, [key]: e.target.value})
   }
 
@@ -96,7 +96,7 @@ export default function LoginPage(props) {
     setValidating(true);
     axios.post('https://curate.v1.coycoding.com/FaqPosts', {question, answer}, authHeaders)
         .then(function (response) {
-          setSucess({message: 'you will never see this'});
+          setsuccess(['you will never see this']);
           props.setFaqs([...props.faqs, {...response.data} ]);
           setForm({question: '', answer: ''});
           setValidating(false);
@@ -120,7 +120,7 @@ export default function LoginPage(props) {
     setValidating(true);
     axios.put('https://curate.v1.coycoding.com/FaqPosts/' + id, {question, answer}, authHeaders)
         .then(function (response) {
-          setSucess({message: 'you wont see'});
+          setsuccess({message: 'you wont see'});
           const faqs = props.faqs;
           faqs[id] = response.data;
           props.setFaqs([...faqs]);
@@ -128,7 +128,7 @@ export default function LoginPage(props) {
         })
         .catch(function (error) {
           setValidating(false);
-          return setErrors(['Congrats to got to the secret error. I bet your internet went out.']);
+          return setErrors(['Congrats to got to the secret error. Actually there must have been a problem with the server']);
       });
   }
 
@@ -156,7 +156,7 @@ export default function LoginPage(props) {
         </Button>
       </ValidatorForm>
       <ErrorDisplay errors={errors}/>
-      {sucess.message ? <>Hey that sent I just don't want to spend a bunch of hours on some crazy blinking lights.</> : <></>}
+      {success.message ? <>sucess</> : <></>}
     </div>
   )
 
