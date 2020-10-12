@@ -59,7 +59,6 @@ export default function LoginPage(props) {
   const [validating, setValidating] = useState(false);
   const [errors, setErrors] = useState([]);
   const [success, setsuccess] = useState({});
-  console.log(props)
   // Checks to see if we are in edit mode and loads the form.
   useEffect(()=>{
     const id = props.match.params.id;
@@ -93,14 +92,17 @@ export default function LoginPage(props) {
     }
 
     setValidating(true);
-    axios.post('https://curate.v1.coycoding.com/FaqPosts', {question, answer}, authHeaders)
-        .then(function (response) {
+    axios.post('https://curate.v1.coycoding.com/FaqPosts', {question, answer}, {headers: {
+        'Authorization' : `Bearer ${localStorage.getItem('access-token')}`
+    }})
+    .then(function (response) {
           setsuccess({message: 'success'});
           props.setFaqs([...props.faqs, {...response.data} ]);
           setForm({question: '', answer: ''});
           setValidating(false);
         })
         .catch(function (error) {
+          console.log(error.response);
           setValidating(false);
           return setErrors(['Uhhh there was an error with the server I guess']);
       });
@@ -117,7 +119,9 @@ export default function LoginPage(props) {
     }
 
     setValidating(true);
-    axios.put('https://curate.v1.coycoding.com/FaqPosts/' + id, {question, answer}, authHeaders)
+    axios.put('https://curate.v1.coycoding.com/FaqPosts/' + id, {question, answer}, {headers: {
+        'Authorization' : `Bearer ${localStorage.getItem('access-token')}`
+    }})
         .then(function (response) {
           setsuccess({message: 'success'});
           const faqs = props.faqs;
@@ -128,6 +132,7 @@ export default function LoginPage(props) {
           setForm({question: response.data.question, answer: response.data.answer});
         })
         .catch(function (error) {
+          console.log(error.response);
           setValidating(false);
           return setErrors(['Congrats to got to the secret error. Actually there must have been a problem with the server']);
       });

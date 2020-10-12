@@ -17,7 +17,9 @@ function Dashboard(props){
   }
 
   const confirmDelete = () => {
-    axios.delete('https://curate.v1.coycoding.com/FaqPosts/' + selectedItem.id, authHeaders)
+    axios.delete('https://curate.v1.coycoding.com/FaqPosts/' + selectedItem.id, {headers: {
+        'Authorization' : `Bearer ${localStorage.getItem('access-token')}`
+    }})
         .then(function (response) {
           const i = findFAQById(props.faqs, selectedItem.id);
           const newFaq = removeIndexFromArray(props.faqs, i);
