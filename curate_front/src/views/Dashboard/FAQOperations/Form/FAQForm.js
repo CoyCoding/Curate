@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ValidatorForm } from 'react-material-ui-form-validator';
 import { authHeaders } from '../../../../utils/authHeaders';
+import ErrorDisplay from '../../../../components/ErrorDisplay/ErrorDisplay';
 import { findFAQById } from '../utils/findFAQById';
 import axios from 'axios';
 
@@ -56,7 +57,7 @@ export default function LoginPage(props) {
   const classes = useStyles();
   const [form, setForm] = useState({question: '', answer: ''});
   const [validating, setValidating] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
   const [sucess, setSucess] = useState({});
 
   // Checks to see if we are in edit mode and loads the form.
@@ -72,7 +73,7 @@ export default function LoginPage(props) {
   // Handle all text form changes. And clear errors
   const handleChange = (e) =>{
       const key = e.target.name;
-      setErrors({})
+      setErrors([])
       setSucess({})
       setForm({...form, [key]: e.target.value})
   }
@@ -113,13 +114,13 @@ export default function LoginPage(props) {
     const id = props.match.params.id;
 
     if(!answer || !question) {
-      return setErrors({message: 'Both a question and an answer are required'});
+      return setErrors(['Both a question and an answer are Required']);
     }
 
     setValidating(true);
     axios.put('https://curate.v1.coycoding.com/FaqPosts/' + id, {question, answer}, authHeaders)
         .then(function (response) {
-          setSucess({message: 'you wont see this either'});
+          setSucess({message: 'you wont see'});
           const faqs = props.faqs;
           faqs[id] = response.data;
           props.setFaqs([...faqs]);
@@ -127,7 +128,7 @@ export default function LoginPage(props) {
         })
         .catch(function (error) {
           setValidating(false);
-          return setErrors({message: 'Uhhh there was an error with the server I guess'});
+          return setErrors(['Congrats to got to the secret error. I bet your internet went out.']);
       });
   }
 
@@ -155,7 +156,7 @@ export default function LoginPage(props) {
           Submit
         </Button>
       </ValidatorForm>
-      {errors.message ? <>{errors.message}</> : <></>}
+      <ErrorDisplay errors={errors}/>
       {sucess.message ? <>Hey that sent I just don't want to spend a bunch of hours on some crazy blinking lights.</> : <></>}
     </div>
   )
