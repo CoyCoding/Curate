@@ -91,6 +91,7 @@ function EnhancedTableBody(props) {
     props.history.push(`/Dashboard/Page/1`)
   }
 
+  // Passes the delete request to the parent comp
   function deleteQuestion(item){
       props.delete(item);
   }
