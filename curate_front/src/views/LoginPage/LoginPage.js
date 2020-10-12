@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import ErrorDisplay from '../../components/ErrorDisplay/ErrorDisplay';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -48,10 +49,17 @@ export default function LoginPage(props) {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [validating, setValidating] = useState(false);
+  const [errors, setErrors] = useState({email: [], password: []});
 
   useEffect(()=> {
-    ValidatorForm.addValidationRule('Length', (value) => {
-       if (value.length < 4) {
+    ValidatorForm.addValidationRule('short', (value) => {
+       if (value.length < 5) {
+           return false;
+       }
+       return true;
+    });
+    ValidatorForm.addValidationRule('required', (value) => {
+       if (value.length === 0) {
            return false;
        }
        return true;
@@ -65,14 +73,17 @@ export default function LoginPage(props) {
         .then(function (response) {
           localStorage.setItem('access-token', response.data.token);
           props.setLoggedIn(response.data.token);
-          props.history.push('Dashboard');
+          props.history.push('/Dashboard');
         })
-        .catch(function (error) {
-          console.log(error);
+        .catch((error) => {
+          console.log(error.response.data.errors)
+          const email = error.response.data.errors.email || [];
+          const password = error.response.data.errors.password || [];
+          setErrors({email, password})
           setValidating(false);
       });
   }
-
+  console.log(errors)
   return (
     <div className={classes.body}>
       <Container >
@@ -86,12 +97,10 @@ export default function LoginPage(props) {
               Log in
             </Typography>
             <ValidatorForm className={classes.form}
-              onSubmit={handleSubmit}
-              onError={errors => console.log(errors)}>
+              onSubmit={handleSubmit}>
               <TextValidator
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 onChange={event => setEmail(event.target.value)}
                 value={email}
@@ -99,25 +108,26 @@ export default function LoginPage(props) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                validators={['required']}
-                errorMessages={['this field is required']}
+                validators={['required', 'isEmail']}
+                errorMessages={['this field is required', 'email is not valid']}
                 autoFocus
               />
+              <ErrorDisplay errors={errors.email}/>
               <TextValidator
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 name="password"
                 label="Password"
                 onChange={event => setPassword(event.target.value)}
                 value={password}
                 type="password"
-                validators={['required', 'Length:4']}
-                errorMessages={['this field is required', 'password must be longer than 4']}
+                validators={['short']}
+                errorMessages={['Password needs to be at least 4 characters']}
                 id="password"
                 autoComplete="current-password"
               />
+              <ErrorDisplay errors={errors.password}/>
               <Button
                 type="submit"
                 fullWidth
