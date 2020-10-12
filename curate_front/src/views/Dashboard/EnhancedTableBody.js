@@ -49,7 +49,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2)
   },
   cell:{
-    lineBreak: 'anywhere'
+    lineBreak: 'anywhere',
+    width: '50%',
   },
   tableWrapper: {
     overflowX: "auto"
