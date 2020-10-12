@@ -74,7 +74,7 @@ export default function LoginPage(props) {
   const handleChange = (e) =>{
       const key = e.target.name;
       setErrors([])
-      setSucess({})
+      setSucess([])
       setForm({...form, [key]: e.target.value})
   }
 
