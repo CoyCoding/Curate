@@ -95,7 +95,7 @@ export default function LoginPage(props) {
     setValidating(true);
     axios.post('https://curate.v1.coycoding.com/FaqPosts', {question, answer}, authHeaders)
         .then(function (response) {
-          setsuccess(['you will never see this']);
+          setsuccess({message: 'success'});
           props.setFaqs([...props.faqs, {...response.data} ]);
           setForm({question: '', answer: ''});
           setValidating(false);
@@ -119,7 +119,7 @@ export default function LoginPage(props) {
     setValidating(true);
     axios.put('https://curate.v1.coycoding.com/FaqPosts/' + id, {question, answer}, authHeaders)
         .then(function (response) {
-          setsuccess({message: 'you wont see'});
+          setsuccess({message: 'success'});
           const faqs = props.faqs;
           faqs[id] = response.data;
           props.setFaqs([...faqs]);
@@ -155,7 +155,7 @@ export default function LoginPage(props) {
         </Button>
       </ValidatorForm>
       <ErrorDisplay errors={errors}/>
-      {success.message ? <>sucess</> : <></>}
+      {success.message ? <>{success.message}</> : <></>}
     </div>
   )
 
