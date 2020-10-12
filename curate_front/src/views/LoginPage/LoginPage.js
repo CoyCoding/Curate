@@ -70,6 +70,8 @@ export default function LoginPage(props) {
           props.history.push('/Dashboard');
         })
         .catch((error) => {
+          console.log(error)
+          return;
           const email = error.response.data.errors.email || [];
           const password = error.response.data.errors.password || [];
           setErrors({email, password})

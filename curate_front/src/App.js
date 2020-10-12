@@ -24,7 +24,7 @@ function App() {
           setFaqs(response.data)
         })
         .catch(function (error) {
-          
+
       });
   },[])
 
