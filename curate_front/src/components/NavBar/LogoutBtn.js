@@ -20,7 +20,7 @@ function LogoutBtn(props) {
   const classes = useStyles();
 
   const logout = () => {
-    props.history.push('Logout');
+    props.history.push('/Logout');
   }
   return (
     <Button color="inherit" onClick={logout}>

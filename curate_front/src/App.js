@@ -7,6 +7,9 @@ import FaqPage from './views/FaqPage/FaqPage';
 import NavBar from './components/NavBar/NavBar';
 import PrivateRoute from './components/RouteHocs/PrivateRoute';
 import PublicRoute from './components/RouteHocs/PublicRoute';
+import Dashboard from './views/Dashboard/Dashboard';
+import CreateFAQPage from './views/Dashboard/FAQOperations/CreateFAQPage';
+import NotFound from './views/404/NotFound';
 import axios from 'axios';
 import './App.css';
 
@@ -32,8 +35,16 @@ function App() {
       <NavBar loggedIn={loggedIn}/>
         <Switch>
           <Route path="/" exact render={props => <FaqPage faqs={faqs} {...props}/>} />
-          <PublicRoute path="/Login" component={LoginPage} data={{setLoggedIn, loggedIn}} />} />
-        <PrivateRoute path='/Logout' data={{loggedIn, setLoggedIn}} component={Logout}/>
+          <PublicRoute path="/Login" exact component={LoginPage} data={{setLoggedIn, loggedIn}} />} />
+          <PrivateRoute exact path='/Logout'  data={{loggedIn, setLoggedIn}} component={Logout}/>
+
+          <PrivateRoute exact path='/Dashboard' data={{loggedIn, faqs, setFaqs}} component={Dashboard}/>
+
+          <PrivateRoute exact path='/Dashboard/Create' data={{loggedIn, faqs, setFaqs}} component={CreateFAQPage}/>
+
+          <PrivateRoute exact path='/Dashboard/Page/:page' data={{loggedIn, faqs, setFaqs}} component={Dashboard}/>
+
+
         </Switch>
       </div>
     </Router>
