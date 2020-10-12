@@ -1,7 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
 import FAQform from './Form/FAQForm';
-//import { getStringifiedKeyFromValue } from '../../Utils/MapFunctions/MapFunctions';
-
 
 function CreateFAQPage(props){
     return(

@@ -12,6 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Container from '@material-ui/core/Container';
 
+// Three basic Sorting functions for the table
 function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -69,19 +70,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function deleteMenuItem(item){
-  // setMenuItem(item);
-  // toggleMenuOpen(true);
-}
-
-
 function EnhancedTableBody(props) {
-  console.log(props.faqs)
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("question");
-  const [rowsPerPage, setRowsPerPage] = React.useState(25);
-  const page = getSelectedPage(props.page);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const page = getSelectedPage(props.match.params.page);
 
   function getSelectedPage(number){
     let pageNumber = parseInt(number);
@@ -105,8 +99,7 @@ function EnhancedTableBody(props) {
   }
 
   function handleChangePage(event, newPage) {
-    console.log(newPage)
-    props.history.push(`/Dashboard/Page/${newPage+1}/`)
+    props.history.push(`/Dashboard/Page/${newPage+1}/`);
   }
 
   function handleChangeRowsPerPage(event) {
@@ -116,8 +109,13 @@ function EnhancedTableBody(props) {
 
   const emptyRows = 0;
 
+  function deleteQuestion(item){
+    // setMenuItem(item);
+    // toggleMenuOpen(true);
+  }
+
   function editQuestion(question){
-    props.history.push(`/Dashboard/Edit/${question.value}`)
+    props.history.push(`/Dashboard/Edit/${question.id}`)
   }
 
   return (
@@ -140,7 +138,6 @@ function EnhancedTableBody(props) {
               {stableSort(props.faqs, getSorting(order, orderBy))
                 .slice(page  * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  console.log(row)
                   return (
                     <TableRow hover tabIndex={-1} key={row.value}>
                       <TableCell className={classes.cell} component="th">{row.question}</TableCell>
@@ -148,7 +145,7 @@ function EnhancedTableBody(props) {
                       <TableCell  align="center">
                         <div className={classes.flex}>
                           <Button onClick={()=>{editQuestion(row)}} variant="outlined" color="primary" className={classes.edit}>EDIT</Button>
-                          <Button onClick={()=>{editQuestion(row)}} variant="outlined" color="secondary"
+                          <Button onClick={()=>{deleteQuestion(row)}} variant="outlined" color="secondary"
                           className={classes.del}>DELETE</Button>
                         </div>
                       </TableCell>

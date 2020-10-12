@@ -1,5 +1,6 @@
 import Button from '@material-ui/core/Button';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
@@ -22,11 +23,23 @@ function LogoutBtn(props) {
   const logout = () => {
     props.history.push('/Logout');
   }
+
+  // This could just be a link
+  const link = () => {
+    props.history.push('/Dashboard');
+  }
+
   return (
-    <Button color="inherit" onClick={logout}>
-      <PermIdentityIcon className={classes.menuButton} />
-        Logout
-    </Button>
+    <>
+      <Button color="inherit" onClick={link}>
+        <DashboardIcon className={classes.menuButton} />
+          Dashboard
+      </Button>
+      <Button color="inherit" onClick={logout}>
+        <PermIdentityIcon className={classes.menuButton} />
+          Logout
+      </Button>
+    </>
   );
 }
 

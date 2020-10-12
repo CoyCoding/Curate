@@ -8,8 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 const EnhancedToolbar = (props) => {
 
-  function addMenuItem(){
-    //props.setPreviousPage(props.history.location.pathname);
+  function addQuestion(){
     props.history.push('/Dashboard/Create')
   }
 
@@ -21,7 +20,7 @@ const EnhancedToolbar = (props) => {
           <div className="toolbar">
             Add new FAQ Post
             <Tooltip title="Add New FAQ">
-                <IconButton onClick={addMenuItem} aria-label="filter list">
+                <IconButton onClick={addQuestion} aria-label="filter list">
                     <AddIcon/>
                   </IconButton>
             </Tooltip>
