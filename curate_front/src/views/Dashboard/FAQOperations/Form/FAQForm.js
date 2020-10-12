@@ -65,7 +65,7 @@ export default function LoginPage(props) {
     const id = props.match.params.id;
     const faqs = props.faqs;
     if(id && faqs){
-      const i = findFAQById(props.faqs, id);
+      const i = findFAQById(faqs, id);
       setForm({question: faqs[i].question, answer: faqs[i].question});
     }
   },[props.match.params.id, props.faqs])
@@ -121,9 +121,11 @@ export default function LoginPage(props) {
         .then(function (response) {
           setsuccess({message: 'success'});
           const faqs = props.faqs;
-          faqs[id] = response.data;
+          const i = findFAQById(faqs, id)
+          faqs[i] = response.data;
           props.setFaqs([...faqs]);
           setValidating(false);
+          setForm({question: response.data.question, answer: response.data.answer});
         })
         .catch(function (error) {
           setValidating(false);

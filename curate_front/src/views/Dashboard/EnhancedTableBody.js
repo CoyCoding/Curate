@@ -11,7 +11,33 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Container from '@material-ui/core/Container';
-import { desc, getSorting, stableSort } from './FAQOperations/utils/tableSorts';
+
+// Three basic Sorting functions for the table
+function stableSort(array, cmp) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = cmp(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map(el => el[0]);
+}
+
+function getSorting(order, orderBy) {
+  return order === "desc"
+    ? (a, b) => desc(a, b, orderBy)
+    : (a, b) => -desc(a, b, orderBy);
+}
+
+function desc(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,9 +80,7 @@ function EnhancedTableBody(props) {
   const [orderBy, setOrderBy] = React.useState("question");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const page = getSelectedPage(props.match.params.page);
-  const emptyRows = 0;
 
-  // This causes a rerender when something in the table is changed
   useEffect(() => {
 
   }, [props.faqs])
@@ -91,7 +115,8 @@ function EnhancedTableBody(props) {
     props.history.push(`/Dashboard/Page/1`)
   }
 
-  // Passes the delete request to the parent comp
+  const emptyRows = 0;
+
   function deleteQuestion(item){
       props.delete(item);
   }
