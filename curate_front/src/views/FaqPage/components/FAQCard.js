@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 
+// styles
 const Accordion = withStyles({
   root: {
     border: '1px solid rgba(0, 0, 0, .125)',
