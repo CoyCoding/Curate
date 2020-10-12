@@ -85,7 +85,6 @@ export default function LoginPage(props) {
 
   // Axios create new FAQ
   // In larger projects I would have this in my Redux / action
-  // Form should not be controlling the data
   const create = () => {
     const question = form.question;
     const answer = form.answer;

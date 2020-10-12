@@ -58,12 +58,6 @@ export default function LoginPage(props) {
        }
        return true;
     });
-    ValidatorForm.addValidationRule('required', (value) => {
-       if (value.length === 0) {
-           return false;
-       }
-       return true;
-    });
   });
 
   const handleSubmit = (e) =>{
