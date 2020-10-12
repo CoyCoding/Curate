@@ -16,7 +16,7 @@ class FaqPost extends Migration
         Schema::create('faq_posts', function (Blueprint $table) {
             $table->id();
             $table->text('question');
-            $table->string('answer');
+            $table->text('answer');
             $table->timestamps();
         });
     }
