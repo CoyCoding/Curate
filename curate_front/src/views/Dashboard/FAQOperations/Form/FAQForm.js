@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ValidatorForm } from 'react-material-ui-form-validator';
+import { authHeaders } from '../../../../utils/authHeaders';
+import { findFAQById } from '../utils/findFAQById';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -61,24 +63,12 @@ export default function LoginPage(props) {
   // Checks to see if we are in edit mode and loads the form.
   useEffect(()=>{
     const id = props.match.params.id;
-    if(id && props.faqs){
-      const faqs = props.faqs;
-      for(var i = 0; i < faqs.length; i++){
-        if(faqs[i].id === Number(id)){
-          setEditId(i);
-          setForm({question: faqs[i].question, answer: faqs[i].question});
-          break;
-        }
-      }
+    const faqs = props.faqs;
+    if(id && faqs){
+      const i = findFAQById(props.faqs, id);
+      setForm({question: faqs[i].question, answer: faqs[i].question});
     }
   },[props.match.params.id, props.faqs])
-
-  // Stored authHeaders most of the time I put these in its own file.
-  const authHeaders = {
-      headers: {
-          "Authorization" : `Bearer ${localStorage.getItem('access-token')}`,
-      }
-  }
 
   // Handle all text form changes. And clear errors
   const handleChange = (e) =>{
@@ -95,7 +85,7 @@ export default function LoginPage(props) {
 
   // Axios create new FAQ
   // In larger projects I would have this in my Redux / action
-  // I mean the form should not be controlling the data
+  // Form should not be controlling the data
   const create = () => {
     const question = form.question;
     const answer = form.answer;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { makeStyles, withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../theme/fontTheme';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Title = (props) => {
   const classes = useStyles();
-  
+
   function goHome(){
       props.history.push('/');
   }

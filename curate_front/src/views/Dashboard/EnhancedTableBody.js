@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 //import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import EnhancedTableHead from './EnhancedTableHead';
@@ -66,16 +66,25 @@ const useStyles = makeStyles(theme => ({
     width: 1
   },
   flex:{
-    display: 'flex'
-  }
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  edit:{
+    marginRight: '4px'
+  },
 }));
 
 function EnhancedTableBody(props) {
+  console.log(props)
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("question");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const page = getSelectedPage(props.match.params.page);
+
+  useEffect(() => {
+
+  }, [props.faqs])
 
   function getSelectedPage(number){
     let pageNumber = parseInt(number);
@@ -110,8 +119,7 @@ function EnhancedTableBody(props) {
   const emptyRows = 0;
 
   function deleteQuestion(item){
-    // setMenuItem(item);
-    // toggleMenuOpen(true);
+      props.delete(item);
   }
 
   function editQuestion(question){
@@ -139,7 +147,7 @@ function EnhancedTableBody(props) {
                 .slice(page  * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   return (
-                    <TableRow hover tabIndex={-1} key={row.value}>
+                    <TableRow hover tabIndex={-1} key={row.id}>
                       <TableCell className={classes.cell} component="th">{row.question}</TableCell>
                       <TableCell className={classes.cell} align="left">{row.answer}</TableCell>
                       <TableCell  align="center">
