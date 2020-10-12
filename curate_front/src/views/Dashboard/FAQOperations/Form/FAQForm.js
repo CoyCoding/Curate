@@ -140,8 +140,7 @@ export default function LoginPage(props) {
         {props.edit ? 'Edit' : 'Create'} FAQ Post
       </Typography>
       <ValidatorForm className={classes.form}
-        onSubmit={handleSubmit}
-        onError={errors => console.log(errors)}>
+        onSubmit={handleSubmit}>
         <Typography component="h3" variant="h6">Question</Typography>
         <textarea value={form['question']} name="question" onChange={handleChange} className={classes.test}></textarea>
         <Typography component="h3" variant="h6">Answer</Typography>

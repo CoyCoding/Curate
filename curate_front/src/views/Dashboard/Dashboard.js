@@ -12,7 +12,6 @@ function Dashboard(props){
   const [selectedItem, setSelectedItem] = useState(null);
 
   const deleteSelected = (itemToDelete) => {
-    console.log(itemToDelete)
     setSelectedItem(itemToDelete);
     setPopUpStatus(true);
   }
